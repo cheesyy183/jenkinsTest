@@ -1,21 +1,58 @@
 pipeline {
-	agent {
-		docker { image 'python:latest' }
+	agent any
+	
+	//for using docker
+	//agent {
+	//	docker { image 'python:latest' }
+	//}
+	
+	environment {
+		NAME_VAR = 'Bohdan'
 	}
 	
     stages {
         stage('build') {
+		
+			environment {
+				STAGE_VAR = 'Build'
+			}
+			
             steps {
                 retry(3) {
 					echo 'Hello World!'
-					sh 'python --version'
+					//sh 'python'
 				}
 				
 				timeout(time: 1, unit: 'SECONDS') {
 					echo 'Another hello world!'
+					
+					//it will be failed
+					//cat somefile.txt
 				}
+				
+				echo "Global variable: ${NAME_VAR}"
+				echo "Build stage variable: ${STAGE_VAR}"
+				
+				//it will not be working
+				echo "New stage variable: ${NEW_STAGE_VAR}"
             }
         }
+		
+		stage('somestage') {
+			
+			environment {
+				NEW_STAGE_VAR = 'somestage'
+			}
+			
+			steps {
+				echo "Global variable: ${NAME_VAR}"
+				
+				//it will not be working
+				//echo "Build stage variable: ${STAGE_VAR}"
+				
+				echo "New stage variable: ${NEW_STAGE_VAR}"
+			}
+		}
     }
 	
 	post {
