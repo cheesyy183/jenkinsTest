@@ -1,11 +1,14 @@
 pipeline {
-	agent any
+	agent {
+		docker { image 'python:latest' }
+	}
 	
     stages {
         stage('build') {
             steps {
                 retry(3) {
 					echo 'Hello World!'
+					sh 'python --version'
 				}
 				
 				timeout(time: 1, unit: 'SECONDS') {
