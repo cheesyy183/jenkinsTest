@@ -8,8 +8,8 @@ pipeline {
 					echo 'Hello World!'
 				}
 				
-				timeout(time: 10, unit: 'SECONDS') {
-					cat somefile.txt
+				timeout(time: 1, unit: 'SECONDS') {
+					echo 'Another hello world!'
 				}
             }
         }
