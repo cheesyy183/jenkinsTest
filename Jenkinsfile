@@ -34,7 +34,7 @@ pipeline {
 				echo "Build stage variable: ${STAGE_VAR}"
 				
 				//it will not be working
-				echo "New stage variable: ${NEW_STAGE_VAR}"
+				//echo "New stage variable: ${NEW_STAGE_VAR}"
             }
         }
 		
